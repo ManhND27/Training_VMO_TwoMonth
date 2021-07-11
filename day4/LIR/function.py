@@ -1,5 +1,4 @@
 import numpy as np
-from numpy.core.arrayprint import _recursive_guard 
 
 def predict(X, Theta):
     return X @ Theta
