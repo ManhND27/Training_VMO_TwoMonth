@@ -1,9 +1,6 @@
 import json
 import scrapy
 import six
-from scrapy.loader import ItemLoader
-from itemloaders.processors import TakeFirst, MapCompose
-from w3lib.html import remove_tags
 from collections import OrderedDict
 
 
@@ -24,8 +21,10 @@ class CVEItem(TutorialItem):
 
 class CVEDetails(TutorialItem):
     id = scrapy.Field()
+    sky_id = scrapy.Field()
     description = scrapy.Field()
     published_date = scrapy.Field()
+    last_modified = scrapy.Field()
     source = scrapy.Field()
     base_3 = scrapy.Field()
     base_2 = scrapy.Field()

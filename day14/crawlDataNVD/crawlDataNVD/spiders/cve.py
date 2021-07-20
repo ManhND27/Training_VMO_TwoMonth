@@ -1,6 +1,5 @@
 import scrapy
-from scrapy.loader import ItemLoader
-from crawlDataNVD.items import CVEItem
+from ..items import CVEItem
 
 class CrawYearMothCVE(scrapy.Spider):
     name = "year_month_cve"
