@@ -6,8 +6,41 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import pymongo
+# from scrapy.conf import settings
+# from scrapy.exceptions import DropItem
+# from scrapy import log
 
-BOT_NAME = 'crawlDataNVD'
+# ITEM_PIPELINES = ['stack.pipelines.MongoDBPipeline', ]
+#
+MONGODB_SERVER = "localhost"
+MONGODB_PORT = 27017
+MONGODB_DB = "CVE_DB"
+MONGODB_COLLECTION_1 = "year_month_cve"
+MONGODB_COLLECTION_2 = "cve_detail"
+MONGODB_COLLECTION_3 = "cve_detail_full"
+# BOT_NAME = 'crawlDataNVD'
+# class MongoDBPipeline(object):
+#
+#     def __init__(self):
+#         connection = pymongo.MongoClient(
+#             settings['MONGODB_SERVER'],
+#             settings['MONGODB_PORT']
+#         )
+#         db = connection[settings['MONGODB_DB']]
+#         self.collection = db[settings['MONGODB_COLLECTION']]
+#
+#     def process_item(self, item, spider):
+#         valid = True
+#         for data in item:
+#             if not data:
+#                 valid = False
+#                 raise DropItem("Missing {0}!".format(data))
+#         if valid:
+#             self.collection.insert(dict(item))
+#             log.msg("Question added to MongoDB database!",
+#                     level=log.DEBUG, spider=spider)
+#         return item
 
 SPIDER_MODULES = ['crawlDataNVD.spiders']
 NEWSPIDER_MODULE = 'crawlDataNVD.spiders'
@@ -17,7 +50,9 @@ NEWSPIDER_MODULE = 'crawlDataNVD.spiders'
 #USER_AGENT = 'crawlDataNVD (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = True
+
+
 
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
@@ -66,6 +101,11 @@ ROBOTSTXT_OBEY = False
 #ITEM_PIPELINES = {
 #    'crawlDataNVD.pipelines.CrawldatanvdPipeline': 300,
 #}
+
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

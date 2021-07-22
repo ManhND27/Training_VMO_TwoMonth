@@ -1,4 +1,6 @@
 import scrapy
+
+from ..pipelines import CrawldatanvdPipeline
 from ..items import CVEItem
 
 class CrawYearMothCVE(scrapy.Spider):
@@ -25,6 +27,7 @@ class CrawYearMothCVE(scrapy.Spider):
         for cve in cves:
             item = response.meta['item']
             item['id'] = cve.get()
+            CrawldatanvdPipeline.get_instance().process_item(item)
             yield item
 
 
