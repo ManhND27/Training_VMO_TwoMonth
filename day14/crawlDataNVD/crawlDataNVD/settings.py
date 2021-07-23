@@ -50,7 +50,7 @@ NEWSPIDER_MODULE = 'crawlDataNVD.spiders'
 #USER_AGENT = 'crawlDataNVD (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 
 
@@ -98,9 +98,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'crawlDataNVD.pipelines.CrawldatanvdPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'crawlDataNVD.pipelines.CrawldatanvdPipeline': 500,
+}
 
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,

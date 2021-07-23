@@ -26,8 +26,10 @@ class CrawYearMothCVE(scrapy.Spider):
         cves =  response.xpath('//*[@id="body-section"]/div[2]/div').css('a::text')
         for cve in cves:
             item = response.meta['item']
-            item['id'] = cve.get()
-            CrawldatanvdPipeline.get_instance().process_item(item)
+            item['_id'] = cve.get()
+            print(type(item))
+            CrawldatanvdPipeline.get_instance().process_item_year_month(item)
             yield item
+
 
 
