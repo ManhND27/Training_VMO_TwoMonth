@@ -3,8 +3,8 @@
 ## Run week3_week4_crawlDataCVE
 
 ### Crawl by : 
-https://nvd.nist.gov/vuln/full-listing 
-https://www.vulnerabilitycenter.com
+- https://nvd.nist.gov/vuln/full-listing 
+- https://www.vulnerabilitycenter.com
 
 ### PYTHON VERSION
 3.8
