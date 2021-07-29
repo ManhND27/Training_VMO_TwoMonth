@@ -2,16 +2,16 @@
 
 ## Run week3_week4_crawlDataCVE
 
-# Crawl by : 
+### Crawl by : 
 https://nvd.nist.gov/vuln/full-listing 
 https://www.vulnerabilitycenter.com
 
-# PYTHON VERSION
+### PYTHON VERSION
 3.8
 
-# DATABASE STRUCTURE
+### DATABASE STRUCTURE
 
-# Database Management System: Mongodb Enterprise 
+### Database Management System: Mongodb Enterprise 
 Database name: CVE_DB
 Collection name: 
 - year_month_cve
