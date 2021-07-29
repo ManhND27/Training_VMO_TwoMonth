@@ -8,7 +8,7 @@ from scrapy.spidermiddlewares.httperror import HttpError
 from scrapy.utils.response import response_status_message
 from collections import defaultdict
 
-class CVE_Detail(scrapy.Spider):
+class CVE_Detail_full(scrapy.Spider):
     name = "cve_detail_full"
 
     # start_urls = ['https://nvd.nist.gov/vuln/full-listing']
