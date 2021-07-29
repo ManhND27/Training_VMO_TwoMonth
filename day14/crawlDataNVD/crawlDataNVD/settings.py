@@ -8,7 +8,7 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 import pymongo
 # from scrapy.conf import settings
-# from scrapy.exceptions import DropItem
+# from scrapy.exceptions import DropItemCONCURRENT_REQUESTS = 100
 # from scrapy import log
 
 # ITEM_PIPELINES = ['stack.pipelines.MongoDBPipeline', ]
@@ -19,6 +19,11 @@ MONGODB_DB = "CVE_DB"
 MONGODB_COLLECTION_1 = "year_month_cve"
 MONGODB_COLLECTION_2 = "cve_detail"
 MONGODB_COLLECTION_3 = "cve_detail_full"
+
+REACTOR_THREADPOOL_MAXSIZE = 20
+LOG_LEVEL = 'INFO'
+ROBOTSTXT_OBEY = False
+# RETRY_ENABLED = False
 # BOT_NAME = 'crawlDataNVD'
 # class MongoDBPipeline(object):
 #
@@ -56,19 +61,20 @@ ROBOTSTXT_OBEY = False
 
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
-
+CONCURRENT_REQUESTS = 100
+# CONCURRENT_REQUESTS_PER_DOMAIN = 8
+# CONCURRENT_REQUESTS_PER_IP = 10
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 0
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
-
+COOKIES_ENABLED = True
+CONCURRENT_ITEMS = 100
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
 
@@ -98,6 +104,13 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+FAKEUSERAGENT_PROVIDERS = [
+    'scrapy_fake_useragent.providers.FakeUserAgentProvider',
+    'scrapy_fake_useragent.providers.FakerProvider',
+    'scrapy_fake_useragent.providers.FixedUserAgentProvider',
+    'mypackage.providers.CustomProvider'
+]
+
 ITEM_PIPELINES = {
     'crawlDataNVD.pipelines.CrawldatanvdPipeline': 500,
 }
@@ -106,6 +119,14 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
 }
+
+FAKEUSERAGENT_PROVIDERS = [
+    'scrapy_fake_useragent.providers.FakeUserAgentProvider',
+    'scrapy_fake_useragent.providers.FakerProvider',
+    'scrapy_fake_useragent.providers.FixedUserAgentProvider',
+    'mypackage.providers.CustomProvider'
+]
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

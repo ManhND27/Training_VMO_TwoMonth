@@ -13,19 +13,20 @@ class CVE_Detail(scrapy.Spider):
 
     # start_urls = ['https://nvd.nist.gov/vuln/full-listing']
 
+    #start request
     def start_requests(self):
-        with open('./year_month_cve.json', 'r') as data:
-            year_month_cves = json.load(data)
+        data = open('./year_month_cve.json',)
+        year_month_cves = json.load(data)
         url = 'https://nvd.nist.gov/vuln/detail/'
         url_ids = []
         for year_month_cve in year_month_cves:
-            url_ids.append(year_month_cve["id"])
+            url_ids.append(year_month_cve["_id"])
         for url_id in url_ids:
             url_full = url + url_id
             request = scrapy.Request(url_full, callback=self.parse, meta={'_id': url_id})
             yield request
 
-    #done
+    #request for CVE_detail https://nvd.nist.gov/vuln/detail/
     def parse(self, response):
         item = CVEDetailsFull()
         item['_id'] = response.meta['_id']
@@ -39,6 +40,7 @@ class CVE_Detail(scrapy.Spider):
             '//a[@id="Cvss3NistCalculatorAnchor"]/text()').get()
         item['severity']['cvss_ver_2']['base_score'] = response.xpath('//a[@id="Cvss2CalculatorAnchor"]/text()').get()
         #print(item)
+        #redirect CVE_search for https://www.vulnerabilitycenter.com/#search=
         request = scrapy.Request(url="https://www.vulnerabilitycenter.com/svc/svc/svc",
                                  callback=self.parse_cve_skybox_search,
                                  errback=self.errback,
@@ -49,6 +51,7 @@ class CVE_Detail(scrapy.Spider):
                                  meta={'item': item})
         yield request
 
+    #search by id_CVE  -> CVE_detail - addtional information
     def parse_cve_skybox_search(self, response):
         item = response.meta['item']
         try:
@@ -66,10 +69,8 @@ class CVE_Detail(scrapy.Spider):
 
     def parse_cve_skybox_full(self, response):
         item = response.meta['item']
-        print(response.text)
-        print(self.get_json((response.text)))
         item.update(self.get_json(response.text))
-        print("____________done___________")
+        print(item)
         CrawldatanvdPipeline.get_instance().process_item_detail_full(item)
         yield item
 
@@ -150,7 +151,7 @@ class CVE_Detail(scrapy.Spider):
             "accept": "*/*",
             "origin": "https://www.vulnerabilitycenter.com",
             "sec-fetch-site": "same-origin",
-            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
+            #"user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
             "sec-fetch-mode": "cors",
             "sec-fetch-dest": "empty",
             "referer": "https://www.vulnerabilitycenter.com/svc/SVC.html",
@@ -209,4 +210,3 @@ class CVE_Detail(scrapy.Spider):
     #     process_.addBoth(lambda _: crawl(True, process))
 
 
-from scrapy.crawler import CrawlerProcess
