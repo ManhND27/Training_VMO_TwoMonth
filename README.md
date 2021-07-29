@@ -15,16 +15,16 @@
 Database name: CVE_DB
 Collection name: 
 - year_month_cve
-`
-{"year" : { "bsonType": "string" }, "month" : { "bsonType": "string" }, "_id" : { "bsonType": "string" } }
+
+> {"year" : { "bsonType": "string" }, "month" : { "bsonType": "string" }, "_id" : { "bsonType": "string" } }
 `
 - cve_detail:
-`
-"_id" : { "bsonType": "string" },
-"description" : { "bsonType": "string" },
-"published_date" : { "bsonType": "string" },
-"last_modified" : { "bsonType": "string" },
-"source" : { "bsonType": "string" },
+
+>"_id" : { "bsonType": "string" },
+>"description" : { "bsonType": "string" },
+>"published_date" : { "bsonType": "string" },
+>"last_modified" : { "bsonType": "string" },
+>"source" : { "bsonType": "string" },
 "severity" : {
 	"cvss_ver_3x" : {
 	    "base_score" : { "bsonType": "string" }
