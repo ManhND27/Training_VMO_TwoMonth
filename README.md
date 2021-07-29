@@ -16,7 +16,7 @@ Database name: CVE_DB
 Collection name: 
 - year_month_cve
 
-${"year" : { "bsonType": "string" }, "month" : { "bsonType": "string" }, "_id" : { "bsonType": "string" } }
+${"year" : { "bsonType": "string" }, "month" : { "bsonType": "string" }, "_id" : { "bsonType": "string" } }$
 
 - cve_detail:
 
