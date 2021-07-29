@@ -15,9 +15,10 @@ Database Management System: Mongodb Enterprise
 Database name: CVE_DB
 Collection name: 
 - year_month_cve
+
 {"year" : { "bsonType": "string" }, "month" : { "bsonType": "string" }, "_id" : { "bsonType": "string" } }
 - cve_detail:
-- 
+
 "_id" : { "bsonType": "string" },
 "description" : { "bsonType": "string" },
 "published_date" : { "bsonType": "string" },
