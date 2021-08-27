@@ -19,7 +19,7 @@ def loadData(path):
 def calcDistancs(pointA, pointB, numOfFeature = 4):
     tmp = 0
     for i in range(numOfFeature):
-        tmp += (float(pointA[i]) + float(pointB[i])) ** 2
+        tmp += (float(pointA[i]) - float(pointB[i])) ** 2
     return math.sqrt(tmp)
 
 def kNearestNeighbor(trainSet, point, k):
